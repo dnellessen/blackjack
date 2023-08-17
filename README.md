@@ -1,7 +1,7 @@
 # Blackjack
 
 A simple console game of blackjack to get familiar with C#.
-
+<img src="img/gameplay.png" width="80%"> 
 
 ## Installation
 ```sh
