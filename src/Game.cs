@@ -15,6 +15,7 @@ namespace Game
         private readonly string keysInfo3 = "(Q)uit";
 
         private float FactorLose { get; } = 0f;
+        private float FactorTie { get; } = 1f;
         private float FactorWin { get; } = 2f;
         private float FactorBlackjack { get; } = 2.5f;
 
@@ -340,6 +341,10 @@ namespace Game
                     if (player.Count == 21)
                         break;
 
+                    // empty deck -> new deck
+                    if (this.CardDeck.Size == 0)
+                        this.CardDeck = new Deck();
+
                     // wait key
                     Console.SetCursorPosition(0, 0);
                     ConsoleKeyInfo playerMove = Console.ReadKey(true);
@@ -392,6 +397,10 @@ namespace Game
                 // distribute cards to dealer when necessary
                 while (17 > dealer.Count)
                 {
+                    // empty deck -> new deck
+                    if (this.CardDeck.Size == 0)
+                        this.CardDeck = new Deck();
+
                     dealer.AddCard(this.CardDeck.GetCard());
                     this.PrintCards(true);
 
@@ -419,6 +428,7 @@ namespace Game
                 else
                 {
                     this.PrintMessage("Tie.", ConsoleColor.White);
+                    player.TotalMoney += player.Bet * this.FactorTie;
                 }
 
                 // reset dealer and player and wait for user to decide to keep plaing or not
